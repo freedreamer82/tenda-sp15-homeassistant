@@ -1,0 +1,86 @@
+# ---------------------------------------------------------------------------
+# Home Assistant — Tenda Beli, fully local
+#
+# In configuration.yaml:
+#
+#     switch: !include switches.yaml
+#
+# In switches.yaml, paste everything below. Do NOT repeat the "switch:" key
+# inside an !include-d file: the key lives in configuration.yaml, the file
+# holds only the value.
+# ---------------------------------------------------------------------------
+
+- platform: rest
+  name: "Power Strip PLUG1"
+  unique_id: tenda_plug1
+  resource: "http://192.168.1.50:5000/setSta"
+  state_resource: "http://192.168.1.50:5000/getSta"
+  body_on: '{"sub_device":[{"dev_name":"PLUG1","action":1}]}'
+  body_off: '{"sub_device":[{"dev_name":"PLUG1","action":0}]}'
+  is_on_template: >-
+    {{ value_json.data.sub_device | selectattr('mark','equalto','PLUG1')
+       | map(attribute='status') | first == 1 }}
+  headers:
+    Content-Type: application/json
+  scan_interval: 15
+
+- platform: rest
+  name: "Power Strip PLUG2"
+  unique_id: tenda_plug2
+  resource: "http://192.168.1.50:5000/setSta"
+  state_resource: "http://192.168.1.50:5000/getSta"
+  body_on: '{"sub_device":[{"dev_name":"PLUG2","action":1}]}'
+  body_off: '{"sub_device":[{"dev_name":"PLUG2","action":0}]}'
+  is_on_template: >-
+    {{ value_json.data.sub_device | selectattr('mark','equalto','PLUG2')
+       | map(attribute='status') | first == 1 }}
+  headers:
+    Content-Type: application/json
+  scan_interval: 15
+
+- platform: rest
+  name: "Power Strip PLUG3"
+  unique_id: tenda_plug3
+  resource: "http://192.168.1.50:5000/setSta"
+  state_resource: "http://192.168.1.50:5000/getSta"
+  body_on: '{"sub_device":[{"dev_name":"PLUG3","action":1}]}'
+  body_off: '{"sub_device":[{"dev_name":"PLUG3","action":0}]}'
+  is_on_template: >-
+    {{ value_json.data.sub_device | selectattr('mark','equalto','PLUG3')
+       | map(attribute='status') | first == 1 }}
+  headers:
+    Content-Type: application/json
+  scan_interval: 15
+
+- platform: rest
+  name: "Power Strip USB"
+  unique_id: tenda_usb
+  resource: "http://192.168.1.50:5000/setSta"
+  state_resource: "http://192.168.1.50:5000/getSta"
+  body_on: '{"sub_device":[{"dev_name":"USB","action":1}]}'
+  body_off: '{"sub_device":[{"dev_name":"USB","action":0}]}'
+  is_on_template: >-
+    {{ value_json.data.sub_device | selectattr('mark','equalto','USB')
+       | map(attribute='status') | first == 1 }}
+  headers:
+    Content-Type: application/json
+  scan_interval: 15
+
+# ---------------------------------------------------------------------------
+# Optional: Wi-Fi signal. This one is a sensor, so it belongs under your
+# EXISTING "sensor:" key — adding a second "sensor:" silently discards one
+# of the two blocks.
+#
+#   - platform: rest
+#     name: "Power Strip Signal"
+#     unique_id: tenda_rssi
+#     resource: "http://192.168.1.50:5000/getDetail"
+#     value_template: "{{ value_json.data.rssi }}"
+#     unit_of_measurement: "dBm"
+#     device_class: signal_strength
+#     state_class: measurement
+#     scan_interval: 300
+#
+# Reserve 192.168.1.50 for this plug in your router's DHCP settings, or the
+# entities go unavailable the day the lease changes.
+# ---------------------------------------------------------------------------
