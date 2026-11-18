@@ -1,5 +1,7 @@
 # tenda-sp15-homeassistant
 
+[![Donate with PayPal](https://img.shields.io/badge/Donate-PayPal-00457C?logo=paypal&logoColor=white)](https://www.paypal.me/marcogarzola)
+
 Run a **Tenda Beli** smart plug entirely on your own network — no vendor app,
 no vendor cloud — and generate the Home Assistant configuration for it.
 
@@ -231,6 +233,12 @@ with a different layout should be handled correctly. Reports welcome.
 This project takes a deliberately smaller approach: no custom component, no
 broker, no add-on. Core `switch.rest` entities and a shell script, so there is
 nothing to keep up to date as Home Assistant evolves.
+
+## Support
+
+If this project saved you some time, you can buy me a coffee ☕
+
+[![Donate with PayPal](https://img.shields.io/badge/Donate-PayPal-00457C?logo=paypal&logoColor=white)](https://www.paypal.me/marcogarzola)
 
 ## License
 
